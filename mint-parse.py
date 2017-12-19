@@ -6,6 +6,18 @@ from decimal import Decimal
 
 # global variables
 categories = {
+    "Income" : {
+        "sumTotal": [],
+        "subcategories": {
+            "Income" : [],
+            "Bonus" : [],
+            "Interest Income" : [],
+            "Paycheck" : [],
+            "Reimbursement" : [],
+            "Rental Income" : [],
+            "Returned Purchase" : []
+        }
+    },
     "Auto & Transport" : {
         "sumTotal": [],
         "subcategories": {
@@ -16,12 +28,216 @@ categories = {
             "Gas & Fuel" : [],
             "Parking" : [],
             "Public Transportation" : [],
-            "Service & Parts" : [],
+            "Service & Parts" : []
+        }
+    },
+    "Bills & Utilities" : {
+        "sumTotal": [],
+        "subcategories": {
+            "Bills & Utilities" : [],
+            "Home Phone" : [],
+            "Internet" : [],
+            "Mobile Phone" : [],
+            "Television" : [],
+            "Utilities" : []
+        }
+    },
+    "Business Services" : {
+        "sumTotal": [],
+        "subcategories": {
+            "Business Services" : [],
+            "Advertising" : [],
+            "Legal" : [],
+            "Office Supplies" : [],
+            "Printing" : [],
+            "Shipping" : []
+        }
+    },
+    "Education" : {
+        "sumTotal": [],
+        "subcategories": {
+            "Education" : [],
+            "Books & Supplies" : [],
+            "Student Loan" : [],
+            "Tuition" : []
+        }
+    },
+    "Entertainment" : {
+        "sumTotal": [],
+        "subcategories": {
+            "Entertainment" : [],
+            "Amusement" : [],
+            "Arts" : [],
+            "Movies & DVDs" : [],
+            "Music" : [],
+            "Newspapers & Magazines" : []
+        }
+    },
+    "Fees & Charges" : {
+        "sumTotal": [],
+        "subcategories": {
+            "Fees & Charges" : [],
+            "ATM Fee" : [],
+            "Bank Fee" : [],
+            "Finance Charge" : [],
+            "Late Fee" : [],
+            "Service Fee" : [],
+            "Trade Commissions" : []
+        }
+    },
+    "Financial" : {
+        "sumTotal": [],
+        "subcategories": {
+            "Financial" : [],
+            "Financial Advisor" : [],
+            "Life Insurance" : []
+        }
+    },
+    "Food & Dining" : {
+        "sumTotal": [],
+        "subcategories": {
+            "Food & Dining" : [],
+            "Alcohol & Bars" : [],
+            "Coffee Shops" : [],
+            "Fast Food" : [],
+            "Groceries" : [],
+            "Restaurants" : []
+        }
+    },
+    "Gifts & Donations" : {
+        "sumTotal": [],
+        "subcategories": {
+            "Gifts & Donations" : [],
+            "Charity" : [],
+            "Gift" : []
+        }
+    },
+    "Health & Fitness" : {
+        "sumTotal": [],
+        "subcategories": {
+            "Health & Fitness" : [],
+            "Dentist" : [],
+            "Doctor" : [],
+            "Eyecare" : [],
+            "Gym": [],
+            "Health Insurance" : [],
+            "Pharmacy" : [],
+            "Sports" : []
+        }
+    },
+    "Home" : {
+        "sumTotal": [],
+        "subcategories": {
+            "Home" : [],
+            "Furnishings" : [],
+            "Home Improvement" : [],
+            "Home Insurance" : [],
+            "Home Services" : [],
+            "Home Supplies" : [],
+            "Lawn & Garden" : [],
+            "Mortgage & Rent" : []
+        }
+    },
+    "Investments" : {
+        "sumTotal": [],
+        "subcategories": {
+            "Investments" : []
+        }
+    },
+    "Kids" : {
+        "sumTotal": [],
+        "subcategories": {
+            "Kids" : [],
+            "Allowance" : [],
+            "Baby Supplies" : [],
+            "Babysitter & Daycare" : [],
+            "Child Support" : [],
+            "Kids Activities" : [],
+            "Toys" : []
+        }
+    },
+    "Loans" : {
+        "sumTotal": [],
+        "subcategories": {
+            "Loans" : [],
+            "Loan Fees and Charges" : [],
+            "Loan Insurance" : [],
+            "Loan Interest" : [],
+            "Loan Payment" : [],
+            "Loan Principal" : []
         }
     },
     "Misc Expenses" : {
         "sumTotal": [],
-        "subcategories": {}
+        "subcategories": {
+            "Misc Expenses" : []
+        }
+    },
+    "Personal Care" : {
+        "sumTotal": [],
+        "subcategories": {
+            "Personal Care" : [],
+            "Hair" : [],
+            "Laundry" : [],
+            "Spa & Massage" : []
+        }
+    },
+    "Pets" : {
+        "sumTotal": [],
+        "subcategories": {
+            "Pets" : [],
+            "Pet Food & Supplies" : [],
+            "Pet Grooming" : [],
+            "Veterinary" : []
+        }
+    },
+    "Shopping" : {
+        "sumTotal": [],
+        "subcategories": {
+            "Shopping" : [],
+            "Books" : [],
+            "Clothing" : [],
+            "Electronics & Software" : [],
+            "Hobbies" : [],
+            "Sporting Goods" : []
+        }
+    },
+    "Taxes" : {
+        "sumTotal": [],
+        "subcategories": {
+            "Taxes" : [],
+            "Federal Tax" : [],
+            "Local Tax" : [],
+            "Property Tax" : [],
+            "Sales Tax" : [],
+            "State Tax" : []
+        }
+    },
+    "Transfer" : {
+        "sumTotal": [],
+        "subcategories": {
+            "Transfer" : [],
+            "Credit Card Payment" : [],
+            "Transfer for Cash Spending" : []
+        }
+    },
+    "Travel" : {
+        "sumTotal": [],
+        "subcategories": {
+            "Travel" : [],
+            "Air Travel" : [],
+            "Hotel" : [],
+            "Rental Car & Taxi" : [],
+            "Vacation" : []
+        }
+    },
+    "Uncategorized" : {
+        "sumTotal": [],
+        "subcategories": {
+            "Uncategorized" : [],
+            "Cash & ATM" : [],
+            "Check" : []
+        }
     }
 }
 
@@ -78,18 +294,33 @@ def main(inputFile, outputFile):
         print("Writing: " + outputFile)
         csvwriter = csv.writer(csvfile)
 
-        # write categories
-        csvwriter.writerow(["Category"] + dateList)
-        for category in categories:
-            csvwriter.writerow([category] + categories[category]["sumTotal"])
-
+        # write income
+        csvwriter.writerow(["Income"] + dateList)
+        category = "Income"
+        csvwriter.writerow([category] + categories[category]["sumTotal"])
         csvwriter.writerow([])
 
-        # write subcategories
-        csvwriter.writerow(["Subcategory"] + dateList)
+        # write expense
+        csvwriter.writerow(["Expenses"] + dateList)
         for category in categories:
-            for subcategory in categories[category]["subcategories"]:
-                csvwriter.writerow([subcategory] + categories[category]["subcategories"][subcategory])
+            if category != "Income":
+                csvwriter.writerow([category] + categories[category]["sumTotal"])
+        csvwriter.writerow([])
+
+        # write income details
+        csvwriter.writerow(["Income Details"] + dateList)
+        category = "Income"
+        for subcategory in categories[category]["subcategories"]:
+            csvwriter.writerow([subcategory] + categories[category]["subcategories"][subcategory])
+        csvwriter.writerow([])
+
+        # write expense details
+        csvwriter.writerow(["Expense Details"] + dateList)
+        for category in categories:
+            if category != "Income":
+                for subcategory in categories[category]["subcategories"]:
+                    csvwriter.writerow([subcategory] + categories[category]["subcategories"][subcategory])
+                csvwriter.writerow([])
 
 if __name__ == "__main__":
     # parses command line for input file and output path
