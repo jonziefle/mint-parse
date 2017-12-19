@@ -7,22 +7,12 @@ from decimal import Decimal
 # global variables
 categories = {
     "Income" : {
-        "sumTotal": [],
         "subcategories": {
-            "Income" : [],
-            "Bonus" : [],
             "Interest Income" : [],
-            "Paycheck" : [],
-            "Reimbursement" : [],
-            "Rental Income" : [],
-            "Returned Purchase" : []
         }
     },
     "Auto & Transport" : {
-        "sumTotal": [],
         "subcategories": {
-            "Auto & Transport" : [],
-            "Auto Insurance" : [],
             "Auto Insurance" : [],
             "Auto Payment" : [],
             "Gas & Fuel" : [],
@@ -32,10 +22,7 @@ categories = {
         }
     },
     "Bills & Utilities" : {
-        "sumTotal": [],
         "subcategories": {
-            "Bills & Utilities" : [],
-            "Home Phone" : [],
             "Internet" : [],
             "Mobile Phone" : [],
             "Television" : [],
@@ -43,29 +30,19 @@ categories = {
         }
     },
     "Business Services" : {
-        "sumTotal": [],
         "subcategories": {
-            "Business Services" : [],
-            "Advertising" : [],
-            "Legal" : [],
             "Office Supplies" : [],
-            "Printing" : [],
             "Shipping" : []
         }
     },
     "Education" : {
-        "sumTotal": [],
         "subcategories": {
-            "Education" : [],
-            "Books & Supplies" : [],
             "Student Loan" : [],
             "Tuition" : []
         }
     },
     "Entertainment" : {
-        "sumTotal": [],
         "subcategories": {
-            "Entertainment" : [],
             "Amusement" : [],
             "Arts" : [],
             "Movies & DVDs" : [],
@@ -74,29 +51,19 @@ categories = {
         }
     },
     "Fees & Charges" : {
-        "sumTotal": [],
         "subcategories": {
-            "Fees & Charges" : [],
             "ATM Fee" : [],
-            "Bank Fee" : [],
-            "Finance Charge" : [],
-            "Late Fee" : [],
-            "Service Fee" : [],
-            "Trade Commissions" : []
+            "Bank Fee" : []
         }
     },
     "Financial" : {
-        "sumTotal": [],
         "subcategories": {
-            "Financial" : [],
             "Financial Advisor" : [],
             "Life Insurance" : []
         }
     },
     "Food & Dining" : {
-        "sumTotal": [],
         "subcategories": {
-            "Food & Dining" : [],
             "Alcohol & Bars" : [],
             "Coffee Shops" : [],
             "Fast Food" : [],
@@ -105,17 +72,13 @@ categories = {
         }
     },
     "Gifts & Donations" : {
-        "sumTotal": [],
         "subcategories": {
-            "Gifts & Donations" : [],
             "Charity" : [],
             "Gift" : []
         }
     },
     "Health & Fitness" : {
-        "sumTotal": [],
         "subcategories": {
-            "Health & Fitness" : [],
             "Dentist" : [],
             "Doctor" : [],
             "Eyecare" : [],
@@ -126,9 +89,7 @@ categories = {
         }
     },
     "Home" : {
-        "sumTotal": [],
         "subcategories": {
-            "Home" : [],
             "Furnishings" : [],
             "Home Improvement" : [],
             "Home Insurance" : [],
@@ -139,15 +100,10 @@ categories = {
         }
     },
     "Investments" : {
-        "sumTotal": [],
-        "subcategories": {
-            "Investments" : []
-        }
+        "subcategories": {}
     },
     "Kids" : {
-        "sumTotal": [],
         "subcategories": {
-            "Kids" : [],
             "Allowance" : [],
             "Baby Supplies" : [],
             "Babysitter & Daycare" : [],
@@ -156,45 +112,24 @@ categories = {
             "Toys" : []
         }
     },
-    "Loans" : {
-        "sumTotal": [],
-        "subcategories": {
-            "Loans" : [],
-            "Loan Fees and Charges" : [],
-            "Loan Insurance" : [],
-            "Loan Interest" : [],
-            "Loan Payment" : [],
-            "Loan Principal" : []
-        }
-    },
     "Misc Expenses" : {
-        "sumTotal": [],
-        "subcategories": {
-            "Misc Expenses" : []
-        }
+        "subcategories": {}
     },
     "Personal Care" : {
-        "sumTotal": [],
         "subcategories": {
-            "Personal Care" : [],
             "Hair" : [],
             "Laundry" : [],
             "Spa & Massage" : []
         }
     },
     "Pets" : {
-        "sumTotal": [],
         "subcategories": {
-            "Pets" : [],
             "Pet Food & Supplies" : [],
-            "Pet Grooming" : [],
             "Veterinary" : []
         }
     },
     "Shopping" : {
-        "sumTotal": [],
         "subcategories": {
-            "Shopping" : [],
             "Books" : [],
             "Clothing" : [],
             "Electronics & Software" : [],
@@ -203,55 +138,46 @@ categories = {
         }
     },
     "Taxes" : {
-        "sumTotal": [],
         "subcategories": {
-            "Taxes" : [],
             "Federal Tax" : [],
             "Local Tax" : [],
-            "Property Tax" : [],
-            "Sales Tax" : [],
             "State Tax" : []
         }
     },
     "Transfer" : {
-        "sumTotal": [],
         "subcategories": {
-            "Transfer" : [],
             "Credit Card Payment" : [],
             "Transfer for Cash Spending" : []
         }
     },
     "Travel" : {
-        "sumTotal": [],
         "subcategories": {
-            "Travel" : [],
             "Air Travel" : [],
             "Hotel" : [],
             "Rental Car & Taxi" : [],
             "Vacation" : []
         }
-    },
-    "Uncategorized" : {
-        "sumTotal": [],
-        "subcategories": {
-            "Uncategorized" : [],
-            "Cash & ATM" : [],
-            "Check" : []
-        }
     }
 }
 
-dateList = ["1/2017","2/2017","3/2017","4/2017","5/2017","6/2017","7/2017","8/2017","9/2017","10/2017","11/2017","12/2017"]
+dateList = []
 
 def main(inputFile, outputFile):
     # data object
     data = {}
 
+    # initialize dates
+    for year in ["2015", "2016", "2017"]:
+        for month in range(0,12):
+            dateList.append(str(month + 1) + "/" + str(year))
+
+
     # initialize categories
     for category in categories:
-        categories[category]["sumTotal"] = [0] * 12
+        categories[category]["general"] = [0] * len(dateList)
+        categories[category]["sumTotal"] = [0] * len(dateList)
         for subcategory in categories[category]["subcategories"]:
-            categories[category]["subcategories"][subcategory] = [0] * 12
+            categories[category]["subcategories"][subcategory] = [0] * len(dateList)
 
     # open and process csv file
     with open(inputFile, newline='') as csvfile:
@@ -276,18 +202,25 @@ def main(inputFile, outputFile):
                 # set default category
                 csvCategory = ""
                 for category in categories:
-                    if csvSubcategory in categories[category]["subcategories"]:
+                    if csvSubcategory == category:
+                        csvCategory = csvSubcategory
+                        break
+                    elif csvSubcategory in categories[category]["subcategories"]:
                         csvCategory = category
                         break
 
                 # check to see if this is a new category
                 if csvCategory == "":
                     csvCategory = "Misc Expenses"
-                    categories[csvCategory]["subcategories"][csvSubcategory] = [0] * 12
+                    categories[csvCategory]["subcategories"][csvSubcategory] = [0] * len(dateList)
 
                 # add amount
+                if csvCategory == csvSubcategory:
+                    categories[csvCategory]["general"][index] += csvAmount
+                else:
+                    categories[csvCategory]["subcategories"][csvSubcategory][index] += csvAmount
+
                 categories[csvCategory]["sumTotal"][index] += csvAmount
-                categories[csvCategory]["subcategories"][csvSubcategory][index] += csvAmount
 
     # write csv data
     with open(outputFile, 'w', newline='') as csvfile:
@@ -298,6 +231,9 @@ def main(inputFile, outputFile):
         csvwriter.writerow(["Income"] + dateList)
         category = "Income"
         csvwriter.writerow([category] + categories[category]["sumTotal"])
+        csvwriter.writerow(["General"] + categories[category]["general"])
+        for subcategory in categories[category]["subcategories"]:
+            csvwriter.writerow([subcategory] + categories[category]["subcategories"][subcategory])
         csvwriter.writerow([])
 
         # write expense
@@ -305,19 +241,16 @@ def main(inputFile, outputFile):
         for category in categories:
             if category != "Income":
                 csvwriter.writerow([category] + categories[category]["sumTotal"])
-        csvwriter.writerow([])
 
-        # write income details
-        csvwriter.writerow(["Income Details"] + dateList)
-        category = "Income"
-        for subcategory in categories[category]["subcategories"]:
-            csvwriter.writerow([subcategory] + categories[category]["subcategories"][subcategory])
+        csvwriter.writerow([])
         csvwriter.writerow([])
 
         # write expense details
         csvwriter.writerow(["Expense Details"] + dateList)
         for category in categories:
             if category != "Income":
+                csvwriter.writerow([category] + categories[category]["sumTotal"])
+                csvwriter.writerow(["General"] + categories[category]["general"])
                 for subcategory in categories[category]["subcategories"]:
                     csvwriter.writerow([subcategory] + categories[category]["subcategories"][subcategory])
                 csvwriter.writerow([])
