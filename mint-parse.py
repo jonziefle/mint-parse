@@ -232,7 +232,7 @@ def main(inputFile, outputFile):
         csvwriter = csv.writer(csvfile)
 
         # write income
-        csvwriter.writerow(["Income"] + dateList)
+        csvwriter.writerow(["Income Details"] + dateList)
         category = "Income"
         csvwriter.writerow(["General"] + categories[category]["general"])
         for subcategory in categories[category]["subcategories"]:
@@ -240,7 +240,7 @@ def main(inputFile, outputFile):
         csvwriter.writerow([])
 
         # write expense
-        csvwriter.writerow(["Expenses"] + dateList)
+        csvwriter.writerow(["Expense Summary"] + dateList)
         for category in categories:
             if category not in ["Income", "Excluded"]:
                 csvwriter.writerow([category] + categories[category]["sumTotal"])
@@ -251,10 +251,9 @@ def main(inputFile, outputFile):
         csvwriter.writerow(["Expense Details"] + dateList)
         for category in categories:
             if category not in ["Income", "Excluded"]:
-                csvwriter.writerow([category])
-                csvwriter.writerow(["General"] + categories[category]["general"])
+                csvwriter.writerow([category + ": " + "General"] + categories[category]["general"])
                 for subcategory in categories[category]["subcategories"]:
-                    csvwriter.writerow([subcategory] + categories[category]["subcategories"][subcategory])
+                    csvwriter.writerow([category + ": " + subcategory] + categories[category]["subcategories"][subcategory])
 
 if __name__ == "__main__":
     # parses command line for input file and output path
