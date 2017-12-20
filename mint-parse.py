@@ -9,6 +9,7 @@ categories = {
     "Income" : {
         "subcategories": {
             "Interest Income" : [],
+            "Investments": []
         }
     },
     "Auto & Transport" : {
@@ -32,6 +33,7 @@ categories = {
     "Business Services" : {
         "subcategories": {
             "Office Supplies" : [],
+            "Printing" : [],
             "Shipping" : []
         }
     },
@@ -53,7 +55,8 @@ categories = {
     "Fees & Charges" : {
         "subcategories": {
             "ATM Fee" : [],
-            "Bank Fee" : []
+            "Bank Fee" : [],
+            "Service Fee" : []
         }
     },
     "Financial" : {
@@ -99,9 +102,6 @@ categories = {
             "Mortgage & Rent" : []
         }
     },
-    "Investments" : {
-        "subcategories": {}
-    },
     "Kids" : {
         "subcategories": {
             "Allowance" : [],
@@ -144,18 +144,21 @@ categories = {
             "State Tax" : []
         }
     },
-    "Transfer" : {
-        "subcategories": {
-            "Credit Card Payment" : [],
-            "Transfer for Cash Spending" : []
-        }
-    },
     "Travel" : {
         "subcategories": {
             "Air Travel" : [],
             "Hotel" : [],
             "Rental Car & Taxi" : [],
             "Vacation" : []
+        }
+    },
+    "Transfer for Cash Spending" : {
+        "subcategories": {}
+    },
+    "Excluded" : {
+        "subcategories": {
+            "Transfer": [],
+            "Credit Card Payment" : []
         }
     }
 }
@@ -191,10 +194,7 @@ def main(inputFile, outputFile):
         for row in csvreader:
             csvDate = row[0].split("/")[0] + "/" + row[0].split("/")[2]
             csvSubcategory = row[5]
-
             csvAmount = round(Decimal(row[3]), 2)
-            if (row[4] == "credit"):
-                csvAmount *= -1
 
             if csvDate in dateList:
                 index = dateList.index(csvDate)
@@ -202,17 +202,21 @@ def main(inputFile, outputFile):
                 # set default category
                 csvCategory = ""
                 for category in categories:
-                    if csvSubcategory == category:
-                        csvCategory = csvSubcategory
-                        break
-                    elif csvSubcategory in categories[category]["subcategories"]:
+                    if csvSubcategory in categories[category]["subcategories"]:
                         csvCategory = category
+                        break
+                    elif csvSubcategory == category:
+                        csvCategory = csvSubcategory
                         break
 
                 # check to see if this is a new category
                 if csvCategory == "":
                     csvCategory = "Misc Expenses"
                     categories[csvCategory]["subcategories"][csvSubcategory] = [0] * len(dateList)
+
+                # add credit/debit factor
+                if (row[4] == "credit" and csvCategory != "Income"):
+                    csvAmount *= -1
 
                 # add amount
                 if csvCategory == csvSubcategory:
@@ -230,7 +234,6 @@ def main(inputFile, outputFile):
         # write income
         csvwriter.writerow(["Income"] + dateList)
         category = "Income"
-        csvwriter.writerow([category] + categories[category]["sumTotal"])
         csvwriter.writerow(["General"] + categories[category]["general"])
         for subcategory in categories[category]["subcategories"]:
             csvwriter.writerow([subcategory] + categories[category]["subcategories"][subcategory])
@@ -239,21 +242,19 @@ def main(inputFile, outputFile):
         # write expense
         csvwriter.writerow(["Expenses"] + dateList)
         for category in categories:
-            if category != "Income":
+            if category not in ["Income", "Excluded"]:
                 csvwriter.writerow([category] + categories[category]["sumTotal"])
 
-        csvwriter.writerow([])
         csvwriter.writerow([])
 
         # write expense details
         csvwriter.writerow(["Expense Details"] + dateList)
         for category in categories:
-            if category != "Income":
-                csvwriter.writerow([category] + categories[category]["sumTotal"])
+            if category not in ["Income", "Excluded"]:
+                csvwriter.writerow([category])
                 csvwriter.writerow(["General"] + categories[category]["general"])
                 for subcategory in categories[category]["subcategories"]:
                     csvwriter.writerow([subcategory] + categories[category]["subcategories"][subcategory])
-                csvwriter.writerow([])
 
 if __name__ == "__main__":
     # parses command line for input file and output path
