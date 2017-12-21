@@ -125,6 +125,7 @@ categories = {
     "Pets" : {
         "subcategories": {
             "Pet Food & Supplies" : [],
+            "Pet Grooming" : [],
             "Veterinary" : []
         }
     },
