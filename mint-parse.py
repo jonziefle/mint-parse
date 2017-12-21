@@ -163,13 +163,9 @@ categories = {
     }
 }
 
-dateList = []
-
 def main(inputFile, outputFile):
-    # data object
-    data = {}
-
     # initialize dates
+    dateList = []
     for year in ["2015", "2016", "2017"]:
         for month in range(0,12):
             dateList.append(str(month + 1) + "/" + str(year))
