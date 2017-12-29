@@ -164,13 +164,26 @@ categories = {
     }
 }
 
-def main(inputFile, outputFile):
+def main(inputFile, outputFile, dataRange):
     # initialize dates
     dateList = []
-    for year in ["2015", "2016", "2017"]:
-        for month in range(0,12):
-            dateList.append(str(month + 1) + "/" + str(year))
 
+    dateRange = dataRange.split(',')
+    dateList.append(dateRange[0])
+    if (len(dateRange) == 2):
+        date = dateRange[0]
+        while (date != dateRange[1]):
+            month = int(date.split('/')[0])
+            year = int(date.split('/')[1])
+
+            if (month % 12 == 0):
+                month = 1
+                year = year + 1
+            else:
+                month = month + 1
+
+            date = str(month) + "/" + str(year)
+            dateList.append(date)
 
     # initialize categories
     for category in categories:
@@ -257,9 +270,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--input', help='<Required> Input File', required=True)
     parser.add_argument('--output', help='<Required> Output File', required=True)
+    parser.add_argument('--range', help='<Required> Single month (6/2017) or Multimonth (6/2017,10/2017)', required=True)
     args = parser.parse_args()
 
     #print(args)
 
     # execute only if run as a script
-    main(args.input, args.output)
+    main(args.input, args.output, args.range)
