@@ -61,8 +61,10 @@ categories = {
     },
     "Financial" : {
         "subcategories": {
+			"College Savings" : [],
             "Financial Advisor" : [],
-            "Life Insurance" : []
+            "Life Insurance" : [],
+			"Retirement" : [],
         }
     },
     "Food & Dining" : {
@@ -164,24 +166,19 @@ categories = {
     }
 }
 
-def main(inputFile, outputFile, dataRange):
+def main(inputFile, dataRange):
     # initialize dates
     dateList = []
+    dateRange = dataRange.split('-')
+    if (len(dateRange) == 2 and dateRange[1] > dateRange[0]):
+        startDate = dateRange[0]
+        endDate = dateRange[1]
+    else:
+        startDate = dateRange[0]
+        endDate = dateRange[0]
 
-    dateRange = dataRange.split(',')
-    dateList.append(dateRange[0])
-    if (len(dateRange) == 2):
-        date = dateRange[0]
-        while (date != dateRange[1]):
-            month = int(date.split('/')[0])
-            year = int(date.split('/')[1])
-
-            if (month % 12 == 0):
-                month = 1
-                year = year + 1
-            else:
-                month = month + 1
-
+    for year in range(int(startDate), int(endDate) + 1):
+        for month in range(1, 13):
             date = str(month) + "/" + str(year)
             dateList.append(date)
 
@@ -237,6 +234,7 @@ def main(inputFile, outputFile, dataRange):
                 categories[csvCategory]["sumTotal"][index] += csvAmount
 
     # write csv data
+    outputFile = os.path.splitext(inputFile)[0] + "_output" + os.path.splitext(inputFile)[1]
     with open(outputFile, 'w', newline='') as csvfile:
         print("Writing: " + outputFile)
         csvwriter = csv.writer(csvfile)
@@ -269,11 +267,10 @@ if __name__ == "__main__":
     # parses command line for input file and output path
     parser = argparse.ArgumentParser()
     parser.add_argument('--input', help='<Required> Input File', required=True)
-    parser.add_argument('--output', help='<Required> Output File', required=True)
-    parser.add_argument('--range', help='<Required> Single month (6/2017) or Multimonth (6/2017,10/2017)', required=True)
+    parser.add_argument('--range', help='<Required> Single year (2018) or Multiyear (20015-2018)', required=True)
     args = parser.parse_args()
 
     #print(args)
 
     # execute only if run as a script
-    main(args.input, args.output, args.range)
+    main(args.input, args.range)
