@@ -267,7 +267,7 @@ if __name__ == "__main__":
     # parses command line for input file and output path
     parser = argparse.ArgumentParser()
     parser.add_argument('--input', help='<Required> Input File', required=True)
-    parser.add_argument('--range', help='<Required> Single year (2018) or Multiyear (20015-2018)', required=True)
+    parser.add_argument('--range', help='<Required> Single year (2018) or Multiyear (2015-2018)', required=True)
     args = parser.parse_args()
 
     #print(args)
