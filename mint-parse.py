@@ -16,10 +16,12 @@ categories = {
         "subcategories": {
             "Auto Insurance" : [],
             "Auto Payment" : [],
+			"Auto Registration" : [],
             "Gas & Fuel" : [],
             "Parking" : [],
             "Public Transportation" : [],
-            "Service & Parts" : []
+            "Service & Parts" : [],
+			"Tolls" : []
         }
     },
     "Bills & Utilities" : {
