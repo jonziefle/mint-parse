@@ -34,6 +34,7 @@ categories = {
     },
     "Business Services" : {
         "subcategories": {
+			"Legal" : [],
             "Office Supplies" : [],
             "Printing" : [],
             "Shipping" : []
@@ -224,7 +225,10 @@ def main(inputFile, dataRange):
                     categories[csvCategory]["subcategories"][csvSubcategory] = [0] * len(dateList)
 
                 # add credit/debit factor
-                if (row[4] == "credit" and csvCategory != "Income"):
+                if (csvCategory == "Income" and row[4] == "debit"):
+                    csvAmount *= -1
+				
+                if (csvCategory != "Income" and row[4] == "credit"):
                     csvAmount *= -1
 
                 # add amount
