@@ -1,1 +1,1 @@
-mint-parse.py --input transactions.csv --range 2015-2021
+python mint-parse.py --input transactions.csv --range 2015-2023

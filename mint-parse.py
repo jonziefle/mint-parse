@@ -8,8 +8,8 @@ from decimal import Decimal
 categories = {
     "Income" : {
         "subcategories": {
-            "Interest Income" : [],
-            "Investments": []
+			"Bonus" : [],
+            "Interest Income" : []
         }
     },
     "Auto & Transport" : {
@@ -164,7 +164,14 @@ categories = {
     "Excluded" : {
         "subcategories": {
             "Transfer": [],
-            "Credit Card Payment" : []
+            "Credit Card Payment" : [],
+            "Loan Payment": [],
+			"Investments": [],
+            "Dividend & Cap Gains": [],
+            "Buy": [],
+            "Sell": [],
+			"Deposit": [],
+			"Trade Commissions": []
         }
     }
 }
